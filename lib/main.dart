@@ -18,6 +18,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Completer<GoogleMapController> _controller = Completer();
 
+
   late Position _currentPosition;
   late String _currentAddress;
 
@@ -53,7 +54,8 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  static const LatLng _center = const LatLng(33.543614, -7.618480);
+
+  static const LatLng _center = const LatLng(33.52827513783762 , -7.647955757656057);
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
@@ -67,6 +69,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   LatLng _lastMapPosition = _center;
+  // LocationPermission permission = LocationPermission
 
   void _onCameraMove(CameraPosition position){
 
@@ -76,6 +79,10 @@ class _MyAppState extends State<MyApp> {
   MapType _currentMapType = MapType.normal;
 
   final Set<Marker> _markers = {};
+
+  void _checkLocation(){
+
+  }
 
   void _onAddMarkerButtonPressed(){
     _getCurrentLocation();
@@ -94,7 +101,6 @@ class _MyAppState extends State<MyApp> {
       );
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -128,13 +134,21 @@ class _MyAppState extends State<MyApp> {
                         backgroundColor: Colors.green,
                         child: const Icon(Icons.map , size: 36.0),
                       ),
-                      SizedBox(height: 40.0),
+                      SizedBox(height: 20.0),
                       FloatingActionButton(
                         onPressed: _onAddMarkerButtonPressed,
                         materialTapTargetSize: MaterialTapTargetSize.padded,
                         backgroundColor: Colors.green,
                         child: const Icon(Icons.add_location , size: 36.0),
+                      ),
+                      SizedBox(height: 20.0),
+                      FloatingActionButton(
+                          onPressed: _getCurrentLocation,
+                          materialTapTargetSize: MaterialTapTargetSize.padded,
+                          backgroundColor: Colors.green,
+                        child: const Icon(Icons.location_on , size: 36.0),
                       )
+
                     ],
                 ),
               ),
